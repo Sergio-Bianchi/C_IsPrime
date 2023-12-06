@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include <time.h>
 
@@ -7,23 +8,28 @@ int isPrimo(unsigned long long n);
 
 
 int main() {
+    // Dichiarazione variabili + inizializzazione clock
     double fx = 0.0;
     clock_t start, finish;
     double durata;
-
-
     start = clock();
-    printf("clock: %ld\n", start);
+    FILE* fp;
+    unsigned long long numero = 0;
 
-    printf("%d\n", isPrimo(10412346523));
+    // Apro il file
+    fp = fopen("../input.txt", "r");
+    fscanf(fp,"%lld", &numero);
+    fclose(fp);
+    fp = fopen("../output.txt", "w");
 
+    fprintf(fp,"%d\n", isPrimo(numero));
 
     finish = clock();
+
     durata = (double) (finish - start) / CLOCKS_PER_SEC;
 
-
-    printf("%8.3f secondi\n", durata);
-
+    fprintf(fp,"%8.5f secondi\n", durata);
+    fclose(fp);
     return 0;
 }
 
@@ -31,6 +37,7 @@ int main() {
 int isPrimo(unsigned long long n) {
     int result = 1;
     if (n == 2 || n == 3 || n == 5 || n == 7) return 1;
+    if(n == 1) return 0;
     if (n % 2 == 0) return 0;
     if (n % 3== 0) return 0;
     if (n % 5== 0) return 0;
