@@ -22,7 +22,20 @@ int main() {
     fclose(fp);
     fp = fopen("../output.txt", "w");
 
-    fprintf(fp,"%d\n", isPrimo(numero));
+    int number = 1;
+    int i = 1;
+
+    while (1) {
+        i = i+2;
+
+        if(number == 10000) {
+            fprintf(fp,"%d\n",i-2);
+            break;
+        };
+        if(isPrimo(i)) {
+            number++;
+        }
+    }
 
     finish = clock();
 
@@ -38,9 +51,9 @@ int isPrimo(unsigned long long n) {
     int result = 1;
     if (n == 2 || n == 3 || n == 5 || n == 7) return 1;
     if(n == 1) return 0;
-    if (n % 2 == 0) return 0;
-    if (n % 3== 0) return 0;
-    if (n % 5== 0) return 0;
+    if(n%2 == 0) return 0;
+    if(n%3 == 0) return 0;
+
     int int_sqrt = (int)sqrtl(n);
     for (unsigned long long i = 2; i <= int_sqrt; i++) {
         if (i % 2) {
